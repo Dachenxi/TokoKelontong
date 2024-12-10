@@ -1,8 +1,8 @@
-import rich
 from rich import box
 from rich.table import Table
+from rich.align import Align
 
-def tabel(title:str,kolom:list, row:list):
+def tabel(title:str,kolom:list, baris:list):
     """
     Membuat tabel Rich dengan kolom yang bisa memiliki justifikasi berbeda.
     
@@ -14,13 +14,15 @@ def tabel(title:str,kolom:list, row:list):
     Returns:
     - Rich Table object
     """
-    tabel = Table(title=title)
-    for columns_list in kolom:
-        columns = columns_list[0]
-        justify = columns_list[1] if len(columns) > 1 else "left"
-        tabel.add_column(columns.capitalize(), justify=justify)
+    tabel = Table(title=title,box=box.MINIMAL_DOUBLE_HEAD)
+    for idx, columns in enumerate(kolom):
+        if baris and isinstance(baris[0][idx], (int,float)):
+            justify = "right"
+        else:
+            justify = "left"
+        tabel.add_column(Align.center(columns.capitalize()), justify=justify)
     
-    for row in row:
+    for row in baris:
         tabel.add_row(*[str(value) for value in row])
     
     return tabel

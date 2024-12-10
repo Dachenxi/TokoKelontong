@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS tokokelontong;
 -- Membuat tabel Kategori;
 CREATE TABLE
     `tokokelontong`.`kategori` (
-        `idkategori` INT NOT NULL,
+        `idkategori` INT NOT NULL AUTO_INCREMENT,
         `namaKategori` VARCHAR(25) NOT NULL,
         PRIMARY KEY (`idkategori`)
     );
@@ -12,7 +12,7 @@ CREATE TABLE
 -- Membuat tabel transaksi;
 CREATE TABLE
     `tokokelontong`.`transaksi` (
-        `idtransaksi` INT NOT NULL,
+        `idtransaksi` INT NOT NULL AUTO_INCREMENT,
         `waktuTransaksi` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `totalBayar` DECIMAL(10, 2) NOT NULL,
         PRIMARY KEY (`idtransaksi`)
@@ -21,7 +21,7 @@ CREATE TABLE
 -- Membuat tabel supplier;
 CREATE TABLE
     `tokokelontong`.`supplier` (
-        `idsupplier` INT NOT NULL,
+        `idsupplier` INT NOT NULL AUTO_INCREMENT,
         `namaSupplier` VARCHAR(255) NOT NULL,
         `alamat` VARCHAR(255) NULL,
         `noTelepon` INT NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE
 -- Mebuat tabel barang
 CREATE TABLE
     `tokokelontong`.`barang` (
-        `idBarang` INT NOT NULL,
+        `idBarang` INT NOT NULL AUTO_INCREMENT,
         `idKategori` INT NULL,
         `idSupplier` INT NULL,
         `namaBarang` VARCHAR(255) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE
 -- Membuat tabel detailTransaksi
 CREATE TABLE
     `tokokelontong`.`detailtransaksi` (
-        `idDetailTransaksi` INT NOT NULL,
+        `idDetailTransaksi` INT NOT NULL AUTO_INCREMENT,
         `idTransaksi` INT NOT NULL,
         `idBarang` INT NOT NULL,
         `banyakBarang` INT NOT NULL,
@@ -61,9 +61,8 @@ CREATE TABLE
 
 -- Membuat tabel detailSupplier
 CREATE TABLE
-    `tokokelontong`.`detailsupplier` (
-        `idDetailSupplier` INT NOT NULL,
-        `idSupplier` INT NOT NULL,
+    `tokokelontong`.`transaksisupplier` (
+        `idTransaksiSupplier` INT NOT NULL AUTO_INCREMENT,
         `idBarang` INT NOT NULL,
         `hargaBeli` DECIMAL(10, 2) NOT NULL,
         `waktuTransaksi` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
