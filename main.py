@@ -1,16 +1,9 @@
-from database import connect_db
-from config import load_environ
+from database import execute_query
 
 def main():
-    # Muat konfigurasi dari file .env
-    config = load_environ()
-
-    # Koneksi ke database
-    conn = connect_db(config)
-    if conn:
-        print("Koneksi berhasil!")
-        # Lakukan operasi lain, misalnya query
-        conn.close()
+    query = "SELECT * FROM detailtransaksi"
+    result = execute_query(query=query)
+    print (result)
 
 if __name__ == "__main__":
     main()
