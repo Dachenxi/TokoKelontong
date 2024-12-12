@@ -1,4 +1,3 @@
-from database import execute_query
 from app import *
 from view import tabel,grup
 from rich import print
