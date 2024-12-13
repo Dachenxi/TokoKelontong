@@ -1,6 +1,8 @@
 from rich import box
 from rich.table import Table
 from rich.align import Align
+from rich.live import Live
+from time import sleep
 
 def tabel(title:str,kolom:list, baris:list):
     """
@@ -21,8 +23,6 @@ def tabel(title:str,kolom:list, baris:list):
         else:
             justify = "left"
         tabel.add_column(Align.center(columns.capitalize()), justify=justify)
-    
     for row in baris:
         tabel.add_row(*[str(value) for value in row])
-    
     return tabel

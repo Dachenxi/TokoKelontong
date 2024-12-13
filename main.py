@@ -1,5 +1,5 @@
 from app import *
-from view import tabel,grup
+from view import tabel
 from rich import print
 
 def main():

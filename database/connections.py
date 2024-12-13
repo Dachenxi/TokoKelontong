@@ -2,17 +2,6 @@ import mysql.connector
 from mysql.connector import Error
 
 def connect_db(config):
-    """Koneksi Ke Database
-
-    Args:
-        config (dict): Dict config .env
-
-    Raises:
-        Error: Gagal menghubungkan ke databases
-
-    Returns:
-        function: db, cursor
-    """
     try:
         db = mysql.connector.connect(
             host=config["host"],
