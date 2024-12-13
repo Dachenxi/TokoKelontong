@@ -5,7 +5,7 @@ def loading(duration=3):
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
+        BarColumn(None),
         TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
         transient=True,
     ) as progress:

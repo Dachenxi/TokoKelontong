@@ -1,3 +1,3 @@
 # __init__.py
-from .tabel import tabel,tabel_dinamis
+from .tabel import tabel
 from .loading_bar import loading
