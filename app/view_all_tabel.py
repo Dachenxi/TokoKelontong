@@ -1,12 +1,11 @@
 from rich import print,box
 from rich.panel import Panel
 from rich.columns import Columns
-from rich.console import Group
 from rich.align import Align
 from rich.live import Live
 from database import execute_query,connect_db
 from config import load_environ
-from view import tabel
+from view import tabel,loading
 from time import sleep
 
 db, cursor = connect_db(load_environ())
@@ -24,24 +23,23 @@ def generate_tabel(nama:str):
                   baris=result)
 
 def main():
-            grub_barang = Panel(Align.center(Columns([
+    loading()
+    grub_barang = Panel(Align.center(Columns([
                 Align.center(generate_tabel("barang")),
                 Align.center(generate_tabel("kategori"))
             ])))
-            grub_transaksi = Panel(Align.center(Columns([
+    print(grub_barang)
+    sleep(0.5)
+    grub_transaksi = Panel(Align.center(Columns([
                 Align.center(generate_tabel("transaksi")),
                 Align.center(generate_tabel("detailtransaksi"))
             ])))
-            grub_supplier = Panel(Align.center(Columns([
+    print(grub_transaksi)
+    sleep(0.5)
+    grub_supplier = Panel(Align.center(Columns([
                 Align.center(generate_tabel("supplier")),
                 Align.center(generate_tabel("transaksisupplier"))
             ])))
-
-            print(Group(
-                grub_barang,
-                grub_transaksi,
-                grub_supplier
-            ))
-
-if __name__ == "__main__":
-    main()
+    print(grub_supplier)
+    sleep(0.5)
+    

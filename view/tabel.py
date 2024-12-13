@@ -1,8 +1,6 @@
 from rich import box
 from rich.table import Table
 from rich.align import Align
-from rich.live import Live
-from time import sleep
 
 def tabel(title:str,kolom:list, baris:list):
     """
