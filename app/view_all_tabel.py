@@ -23,7 +23,9 @@ def generate_tabel(nama:str):
                   baris=result)
 
 def main():
-    loading()
+    loading([
+        ("Mengambil Data dari server", 1)
+    ])
     grub_barang = Panel(Align.center(Columns([
                 Align.center(generate_tabel("barang")),
                 Align.center(generate_tabel("kategori"))
