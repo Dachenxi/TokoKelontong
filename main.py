@@ -8,7 +8,9 @@ def main():
                   (2,'View Barang','On Development'),
                   (3,'View Supplier','On Development'),
                   (4,'View Transaksi','On Development')]
-    main_menu = tabel(title="Main Menu App Toko Kelontong",kolom=kolom_menu,baris=baris_menu)
+    main_menu = tabel(title="Main Menu App Toko Kelontong",
+                      kolom=kolom_menu,
+                      baris=baris_menu)
     print (main_menu)
     
     pilihan = {
