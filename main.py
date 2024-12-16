@@ -19,9 +19,8 @@ def main():
     }
     
     no = input("Nomor Berapa? ")
-    # Panggil fungsi yang sesuai dengan nomor pilihan pengguna
     if no in pilihan:
-        pilihan[no]()  # Menjalankan fungsi yang dipilih
+        pilihan[no]()
     else:
         print("Pilihan tidak valid.")
 try:
