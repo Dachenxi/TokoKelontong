@@ -1,4 +1,3 @@
-import decimal
 from rich import box
 from rich.table import Table
 from rich.align import Align
