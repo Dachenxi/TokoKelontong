@@ -14,7 +14,7 @@ def tabel(title:str,kolom:list, baris:list):
     Returns:
     - Rich Table object
     """
-    tabel = Table(title=title,box=box.MINIMAL_DOUBLE_HEAD)
+    tabel = Table(title=title)
     for idx, columns in enumerate(kolom):
         if baris and isinstance(baris[0][idx], (int,float)):
             justify = "right"
