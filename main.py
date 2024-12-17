@@ -1,6 +1,10 @@
 from app import *
-from view import tabel,loading,key
+from view import tabel,loading,tanya
 from rich import print
+import os
+
+def clear():
+     os.system("cls" if os.name == "nt" else "clear")
 
 def main():
     kolom_menu = [('No'),('App'),('Status')]
@@ -11,18 +15,20 @@ def main():
     main_menu = tabel(title="Main Menu App Toko Kelontong",
                       kolom=kolom_menu,
                       baris=baris_menu)
-    print (main_menu)
-    
-    pilihan = {
-    '1': view_all_tabel.main,
-    '2': view_barang.main,
-    '3': view_supplier.main,
-    '4': view_transaksi.main
-    }
-    
-    no = key('1','2','3','4')
-    if no in pilihan:
-        pilihan[no]()
+    while True:
+        clear()
+        print (main_menu)
+        
+        pilihan = {
+        '1': view_all_tabel.main,
+        '2': view_barang.main,
+        '3': view_supplier.main,
+        '4': view_transaksi.main
+        }
+        
+        no = tanya(str)
+        if no in pilihan:
+            pilihan[no]()
 try:
     if __name__ == "__main__":
         main()
