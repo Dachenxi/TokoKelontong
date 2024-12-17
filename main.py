@@ -30,5 +30,5 @@ try:
         main()
 except KeyboardInterrupt:
     loading([
-        ("Menghentikan Program",3)
+        ("Menghentikan Program",1)
     ])

@@ -1,4 +1,4 @@
-from view import tabel,loading,key
+from view import tabel,loading,key,tanya
 from database import execute_query
 from rich import print
 from rich.align import Align
@@ -40,7 +40,10 @@ def main():
     while True:
         pilihan = key()
         if pilihan == '1':
-            print("\rEdit", end="", flush=True)
+            loading([("Memasuki Edit",2)])
+            edit()
+            break
+
         elif pilihan == '2':
             print("\rFilter", end="", flush=True)
         elif pilihan == '3':
@@ -51,6 +54,34 @@ def main():
 
 def edit():
     clear()
-    loading([
-        ("Memasuki Menu Edit")
-    ])
+    kolom = ["No","Fungsi"]
+    baris = [("1","Cari Menggunakan Kategori ?"),
+             ("2","Cari Menggunakan ID ?")]
+    print(Panel(Align.center(tabel("- Menu Edit -",baris=baris,kolom=kolom))))
+    pilihan = key()
+    
+    if pilihan == "1":
+        clear()
+        kolom_kategori = ["ID","Nama"]
+        print(Panel(Align.center(tabel("- List Kategori -",
+                                       kolom=kolom_kategori,
+                                       baris=execute_query("SELECT * FROM kategori"),
+                                       expand=True)),
+                    subtitle="╭── Masukan ID Kategori untuk di-filter",
+                    subtitle_align="left"))
+        
+        id_kategori = tanya(int)
+        kolom_barang = ["ID","Nama Barang"]
+        print(Panel(Align.center(tabel("- Barang Berdasarkan Kategori -",
+                                       kolom=kolom_barang,
+                                       baris=execute_query(f"SELECT idbarang,namaBarang FROM barang WHERE idKategori = {id_kategori}",),
+                                       expand=True)),
+                    subtitle="╭── Masukan ID Barang untuk di-edit",
+                    subtitle_align="left"))
+        
+        id_barang = tanya(int)
+
+        
+    elif pilihan == "2":
+        print(Panel("Masukan ID Barang"))
+        print("   ╰─>")
