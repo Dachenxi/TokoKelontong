@@ -1,6 +1,6 @@
-import keyboard
+import keyboard, time
 
-def key():
+def key(*listkey):
     """
     Menunggu dan mengembalikan nama tombol yang ditekan.
 
@@ -16,7 +16,8 @@ def key():
         Pastikan modul `keyboard` sudah terinstal dan memiliki izin yang diperlukan
         untuk membaca input keyboard.
     """
+    keyboard.unhook_all()
     while True:
         key = keyboard.read_event()
-        if key.event_type == keyboard.KEY_DOWN:
+        if key.event_type == keyboard.KEY_DOWN and key.name in listkey:
             return key.name

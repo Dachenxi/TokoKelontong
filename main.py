@@ -1,5 +1,5 @@
 from app import *
-from view import tabel,loading
+from view import tabel,loading,key
 from rich import print
 
 def main():
@@ -20,11 +20,9 @@ def main():
     '4': view_transaksi.main
     }
     
-    no = input("Nomor Berapa? ")
+    no = key('1','2','3','4')
     if no in pilihan:
         pilihan[no]()
-    else:
-        print("Pilihan tidak valid.")
 try:
     if __name__ == "__main__":
         main()

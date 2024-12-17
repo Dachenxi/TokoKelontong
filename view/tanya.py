@@ -1,4 +1,5 @@
 from rich import print
+import sys
 
 def tanya(*tipe):
     """

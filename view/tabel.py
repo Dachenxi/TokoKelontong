@@ -1,8 +1,7 @@
-from rich import box
 from rich.table import Table
 from rich.align import Align
 
-def tabel(title:str,kolom:list, baris:list, expand:bool = False):
+def tabel(title:str,kolom:list, baris:list):
     """
     Membuat tabel Rich dengan kolom yang bisa memiliki justifikasi berbeda.
     
@@ -14,7 +13,7 @@ def tabel(title:str,kolom:list, baris:list, expand:bool = False):
     Returns:
     - Rich Table object
     """
-    tabel = Table(title=title,expand=expand)
+    tabel = Table(title=title,expand=True)
     for idx, columns in enumerate(kolom):
         if baris and isinstance(baris[0][idx], (int,float)):
             justify = "right"
