@@ -1,6 +1,7 @@
 from app import *
 from view import tabel,loading,tanya
 from rich import print
+from rich.panel import Panel
 import os
 
 def clear():
@@ -17,7 +18,8 @@ def main():
                       baris=baris_menu)
     while True:
         clear()
-        print (main_menu)
+        print (Panel(main_menu,
+                     subtitle="╭─ Masukan App", subtitle_align="left"))
         
         pilihan = {
         '1': view_all_tabel.main,
