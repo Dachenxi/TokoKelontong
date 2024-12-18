@@ -1,0 +1,1 @@
+SELECT * FROM barang WHERE hargajual < 20000
