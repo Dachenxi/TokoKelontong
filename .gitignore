@@ -26,3 +26,4 @@ Thumbs.db
 
 # Configurasi DB
 config/db_config.json
+/.idea

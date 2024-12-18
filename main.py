@@ -16,25 +16,19 @@ def main():
     main_menu = tabel(title="Main Menu App Toko Kelontong",
                       kolom=kolom_menu,
                       baris=baris_menu)
-    while True:
-        clear()
-        print (Panel(main_menu,
-                     subtitle="╭─ Masukan App", subtitle_align="left"))
-        
-        pilihan = {
-        '1': view_all_tabel.main,
-        '2': view_barang.main,
-        '3': view_supplier.main,
-        '4': view_transaksi.main
-        }
-        
-        no = tanya(str)
-        if no in pilihan:
-            pilihan[no]()
-try:
-    if __name__ == "__main__":
-        main()
-except KeyboardInterrupt:
-    loading([
-        ("Menghentikan Program",1)
-    ])
+
+    clear()
+    print (Panel(main_menu,
+                 subtitle="╭─ Masukan App", subtitle_align="left"))
+
+    no = tanya(str)
+    if no == '1':
+        view_all_tabel.main()
+    elif no == '2':
+        view_barang.barang()
+    elif no == '3':
+        view_supplier.main()
+    elif no == '4':
+        view_transaksi.main()
+if __name__ == "__main__":
+    main()

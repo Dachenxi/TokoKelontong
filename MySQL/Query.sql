@@ -1,1 +1,1 @@
-SELECT * FROM barang WHERE hargajual < 20000
+SELECT * FROM barang WHERE hargapack IS NULL

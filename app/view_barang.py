@@ -1,19 +1,18 @@
-from view import tabel,loading,tanya
-from database import execute, execute_query
+from view import tabel,tanya
+from database import execute_query
 from rich import print
 from rich.rule import Rule
 from rich.align import Align
 from rich.panel import Panel
 from rich.console import Group
-import sys,os,time
+from pathlib import Path
+from ..main import main
+import os,time
 
 def clear():
      os.system("cls" if os.name == "nt" else "clear")
 
-def main():
-    loading([
-        ("Mengambil Data Barang", 0.5)
-    ])
+def barang():
     clear()
     query = "SELECT * FROM barang LIMIT 100"
     header_tabel = ["ID",
@@ -23,15 +22,16 @@ def main():
                     "Harga Jual",
                     "Harga Pack"
                     ]
-    
-    
+
+
     menu = ["No","Fungsi","Info"]
     baris_menu = [
-        ('1','Edit','Edit Barang'),
+        ('1','Edit','Masih Eror'),
         ('2','Filter','Filter Barang'),
-        ('3','View All','Tanpa Limit')
+        ('3','View All','Tanpa Limit'),
+        ('4','Kembali ke menu utama','')
     ]
-    
+
     grub_menu = Group(
         tabel("Barang Limit 100", kolom=header_tabel, baris=execute_query(query=query)),
         tabel("Menu",kolom=menu,baris=baris_menu),
@@ -40,22 +40,18 @@ def main():
     print(Panel((grub_menu),
                 subtitle="╭─",
                 subtitle_align="left"))
-    
-    while True:
-        pilihan = tanya(str)
-        if pilihan == '1':
-            loading([("Memasuki Edit",2)])
-            edit()
-            break
-        elif pilihan == '2':
-            filter()
-            break
-        elif pilihan == '3':
-            print("\rView All", end="", flush=True)
-            break
-        else:
-            sys.stdout.write("\rSalah Input")
-            sys.stdout.flush
+
+    pilihan = tanya(str)
+    if pilihan == '1':
+        edit()
+    elif pilihan == '2':
+        filter()
+    elif pilihan == '3':
+        print("\rView All", end="", flush=True)
+    elif pilihan == '4':
+        main()
+    else:
+        pass
 
 def pilih_kategori():
     """Memilih kategori dari tabel kategori."""
@@ -98,7 +94,8 @@ def edit_barang(id_barang):
     # Masukan nama barang
     clear()
     print(Panel(data_barang_lama, subtitle="Masukan nama baru", subtitle_align="left"))
-    nama_barang_edit = tanya(str)
+    nama_barang_non_kapital = tanya(str)
+    nama_barang_edit = nama_barang_non_kapital.title()
 
     # Masukan harga barang
     clear()
@@ -121,16 +118,15 @@ def edit_barang(id_barang):
 
     # Update data
     execute_query(f"""
-        UPDATE barang 
-        SET idkategori = {id_kategori_edit}, 
-            idsupplier = {id_supplier_edit}, 
-            namabarang = \"{nama_barang_edit}\", 
-            hargajual = {harga_jual_barang}, 
-            hargapack = {harga_jual_pack} 
+        UPDATE barang
+        SET idkategori = {id_kategori_edit},
+            idsupplier = {id_supplier_edit},
+            namabarang = \"{nama_barang_edit}\",
+            hargajual = {harga_jual_barang},
+            hargapack = {harga_jual_pack}
         WHERE idbarang = {id_barang}
     """)
     print(Panel("Data barang berhasil diperbarui!"))
-    loading([("Kembali ke menu Barang", 2)])
 
 def edit():
     clear()
@@ -168,12 +164,14 @@ def filter():
         ('1','Menggunakan Kategori'),
         ('2','Menggunakan Supplier'),
         ('3','Menggunakan Harga'),
-        ('4','Menggunakan Alphabet')
+        ('4','Menggunakan Alphabet'),
+        ('5','Menggunakan Harga Pack'),
+        ('6','Kembali Ke Menu Utama')
     ]
     print(Panel(tabel("- Menu Filter Barang -", kolom=kolom_menu_filter, baris=baris_menu_filter),
                 subtitle="╭─ Masukan Pilih Filter", subtitle_align="left"))
     Filter = tanya(int)
-    
+
     if Filter == 1:
         clear()
         id_kategori = pilih_kategori()
@@ -183,7 +181,7 @@ def filter():
                     subtitle_align="left"))
         input()
         main()
-        
+
     elif Filter == 2:
         clear()
         id_supplier = pilih_supplier()
@@ -193,11 +191,11 @@ def filter():
                     subtitle_align="left"))
         input()
         main()
-        
+
     elif Filter == 3:
         clear()
         range_harga = execute_query("SELECT MAX(hargajual), MIN(hargajual) FROM barang")
-        kolom_harga = ["Range Harga"]
+        kolom_harga = ["MAX","MIN"]
         print(Panel(tabel("- Filter Harga -", kolom=kolom_harga, baris=range_harga),
                     subtitle="╭─ Masukan range harga (cth. > 4000, < 5000)", subtitle_align="left"))
         filter_harga = tanya(str)
@@ -216,13 +214,13 @@ def filter():
             print(Panel(tabel("- Filter Alphabet -", kolom=kolom_alphabet, baris=data_nama_barang),
                     subtitle="╭─ Masukan Alphabet yang tersedia", subtitle_align="left"))
             alphabet = tanya(str)
-            
+
             ditemukan = False
             for ABC in data_nama_barang:
                 if alphabet in ABC[0]:
                     ditemukan = True
                     break
-                
+
             if ditemukan:
                 barang_alphabet = execute_query(f"SELECT * FROM barang WHERE LOWER(namabarang) LIKE \'{alphabet}%\'")
                 print(Panel(tabel(f"- Barang Berdasarkan Alphabet {alphabet}-", kolom=kolom_barang, baris=barang_alphabet),
@@ -230,5 +228,40 @@ def filter():
                 input()
                 main()
             else:
-                print("Barang tidak ada kaka")
+                print(Panel(Align.center("Barang tidak ada kaka"),border_style="bright red"))
                 time.sleep(1)
+
+    elif Filter == 5:
+        clear()
+        data_null = execute_query("SELECT COUNT(*), COUNT(hargaPack), COUNT(*) - COUNT(hargaPack) FROM barang")
+        kolom_null = ["Total Barang","Memiliki Harga Pack","Tidak Memiliki Harga Pack"]
+        baris_pack_filter = [
+            ('1','Yang memiliki Harga pack'),
+            ('2','Yang tidak memiliki Harga pack')
+        ]
+        grup_pack =Group(
+            tabel("- Filter Harga Pack -", kolom=kolom_null, baris=data_null),
+            tabel("- Pilihan Filter -", kolom=['no','Filter'],baris=baris_pack_filter)
+        )
+
+        print(Panel(grup_pack,
+                    subtitle="╭─ Masukan No Fungsi", subtitle_align="left"))
+        filter_pack = tanya(int)
+        if filter_pack == 1:
+            clear()
+            barang_null = execute_query("SELECT * FROM barang WHERE hargapack IS NOT NULL")
+            print(Panel(tabel("- Barang Tanpa Harga Pack -", kolom=kolom_barang, baris=barang_null),
+                subtitle='Enter Untuk Kembali',subtitle_align='left'))
+            input()
+            main()
+
+        if filter_pack == 2:
+            clear()
+            barang_null = execute_query("SELECT * FROM barang WHERE hargapack IS NULL")
+            print(Panel(tabel("- Barang Tanpa Harga Pack -", kolom=kolom_barang, baris=barang_null),
+                subtitle='Enter Untuk Kembali',subtitle_align='left'))
+            input()
+            main()
+
+    else:
+        main()
