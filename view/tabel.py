@@ -22,6 +22,9 @@ def tabel(title:str,kolom:list, baris:list):
     "#D19A66",  # Orange - Numbers
     "#56B6C2",  # Cyan - Operators & Symbols
     "#E5C07B",  # Yellow - Constants
+    "#528BFF",  # Brighter Blue - Focused or Active Items
+    "#BE5046",  # Dark Red - Error Highlights
+    "#C18401",  # Gold - Subtle Accent
     ]
 
     border_color = random.choice(one_dark_colors)

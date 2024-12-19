@@ -1,34 +1,38 @@
-from app import *
-from view import tabel,loading,tanya
 from rich import print
-from rich.panel import Panel
+from rich.console import Group
+from rich.columns import Columns
+from rich.align import Align
+from datetime import datetime
+from app import menu
+from view import panel
 import os
 
 def clear():
-     os.system("cls" if os.name == "nt" else "clear")
+    os.system("cls" if os.name == "nt" else "clear")
 
-def main():
-    kolom_menu = [('No'),('App'),('Status')]
-    baris_menu = [(1,'View All Table','ONLINE'),
-                  (2,'View Barang','On Development'),
-                  (3,'View Supplier','On Development'),
-                  (4,'View Transaksi','On Development')]
-    main_menu = tabel(title="Main Menu App Toko Kelontong",
-                      kolom=kolom_menu,
-                      baris=baris_menu)
+jam = datetime.now()
+now = datetime.strftime(jam,"%d/%m/%Y %H:%M:%S")
+kolom_title = Columns([
+    Align.left("Interface Untuk Database Toko Kelontong"),
+    Align.right(f"{now}")
+    ],expand=True)
 
+kolom_ending = Columns([
+    Align.left("Terima kasih sudah menggunakan program ini"),
+    Align.right(f"{now}")
+    ],expand=True)
+changelog = "Version 1.0"
+grub_main_menu = Group(panel(kolom_title),
+                       panel(changelog),
+                       fit=False)
+grub_ending = Group(panel(kolom_ending))
+
+try:
     clear()
-    print (Panel(main_menu,
-                 subtitle="╭─ Masukan App", subtitle_align="left"))
-
-    no = tanya(str)
-    if no == '1':
-        view_all_tabel.main()
-    elif no == '2':
-        view_barang.barang()
-    elif no == '3':
-        view_supplier.main()
-    elif no == '4':
-        view_transaksi.main()
-if __name__ == "__main__":
-    main()
+    print(panel(grub_main_menu,
+                subtitle="Enter Untuk Melanjutkan Ke Program", subtitle_align="left"))
+    input()
+    menu()
+except KeyboardInterrupt:
+    print()
+    print(panel(grub_ending))

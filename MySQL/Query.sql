@@ -1,1 +1,2 @@
-SELECT * FROM barang WHERE hargapack IS NULL
+SELECT idbarang
+FROM barang ORDER BY idBarang ASC
