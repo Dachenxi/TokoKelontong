@@ -1,6 +1,13 @@
+import random
 from rich.table import Table
 from rich.align import Align
-import random
+from datetime import datetime
+from decimal import Decimal
+
+
+def convert_to_rupiah(value):
+    """Convert a float value to Indonesian Rupiah format."""
+    return f"{value:,.2f}".replace(",", ".")  # Format angka dengan koma menjadi titik
 
 def tabel(title:str,kolom:list, baris:list):
     """
@@ -39,6 +46,12 @@ def tabel(title:str,kolom:list, baris:list):
         tabel.add_column(Align.center(columns.capitalize()), justify=justify)
 
     for row in baris:
-        tabel.add_row(*[str(value) for value in row])
+        formatted_row = [
+            convert_to_rupiah(value) if isinstance(value, (float, Decimal))
+            else value.strftime('%Y-%m-%d %H:%M') if isinstance(value, datetime)
+            else str(value)
+            for value in row
+        ]
+        tabel.add_row(*formatted_row)
 
     return tabel
