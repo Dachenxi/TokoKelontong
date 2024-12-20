@@ -35,7 +35,7 @@ CREATE TABLE
     `tokokelontong`.`supplier` (
         `idSupplier` INT NOT NULL AUTO_INCREMENT,
         `namaSupplier` VARCHAR(255) NOT NULL,
-        `alamat` VARCHAR(255) NULL,
+        `alamat` VARCHAR(255) NOT NULL,
         `noTelepon` VARCHAR(20) NOT NULL,
         `email` VARCHAR(255) NULL,
         PRIMARY KEY (`idSupplier`)
@@ -91,7 +91,12 @@ INSERT INTO `tokokelontong`.`kategori` (`namaKategori`) VALUES
 ('Alat Tulis'),
 ('Bumbu Dapur'),
 ('Peralatan Rumah Tangga'),
-('Rokok');
+('Rokok'),
+('Elektronik'),
+('Pakaian'),
+('Mainan Anak'),
+('Peralatan Olahraga'),
+('Kosmetik');
 
 -- Data contoh untuk tabel supplier
 INSERT INTO `tokokelontong`.`supplier` (`namaSupplier`, `alamat`, `noTelepon`, `email`) VALUES
@@ -101,14 +106,24 @@ INSERT INTO `tokokelontong`.`supplier` (`namaSupplier`, `alamat`, `noTelepon`, `
 ('UD. Makmur Sentosa', 'Jl. Kebon Jeruk No. 3', '081223344556', 'makmur.sentosa@mail.com'),
 ('PT. Indo Sukses', 'Jl. Pahlawan No. 50', '081998877665', 'info@indosukses.co.id'),
 ('CV. Global Abadi', 'Jl. Veteran No. 21', '085677889900', 'contact@globalabadi.co.id'),
-('PT. Mitra Sejahtera', NULL, '082334455667', 'mitra.sejahtera@mail.com'),
-('CV. Karya Bersama', 'Jl. Perintis No. 10', '083223344556', NULL);
+('PT. Mitra Sejahtera', 'Gendengan Wirun No. 17', '082334455667', 'mitra.sejahtera@mail.com'),
+('CV. Karya Bersama', 'Jl. Perintis No. 10', '083223344556', NULL),
+('PT. Elektronik Jaya', 'Jl. Diponegoro No. 88', '081333444555', 'elektronikjaya@mail.com'),
+('CV. Olahraga Prima', 'Jl. Soekarno Hatta No. 21', '082244556677', 'olahragaprima@mail.com'),
+('Toko Mainan Ceria', 'Jl. Kartini No. 5', '083355667788', NULL),
+('UD. Cantik Berseri', 'Jl. Merdeka No. 10', '081122334455', 'cantikberseri@mail.com'),
+('PT. Pakaian Indah', 'Jl. Sutomo No. 99', '081877665544', 'pakaianindah@mail.com');
 
 -- Data contoh untuk tabel transaksi
 INSERT INTO `tokokelontong`.`transaksi` (`waktuTransaksi`, `totalBayar`) VALUES
 ('2024-12-01 10:15:00', 75000.00),
 ('2024-12-01 12:30:00', 95000.00),
-('2024-12-02 09:00:00', 60000.00);
+('2024-12-02 09:00:00', 60000.00),
+('2024-12-02 15:45:00', 85000.00),
+('2024-12-03 11:20:00', 125000.00),
+('2024-12-03 13:00:00', 98000.00),
+('2024-12-04 17:30:00', 45000.00),
+('2024-12-05 08:00:00', 150000.00);
 
 -- Data contoh untuk tabel barang
 INSERT INTO `tokokelontong`.`barang` (`idKategori`, `idSupplier`, `namaBarang`, `hargaJual`, `hargaPack`) VALUES
@@ -131,14 +146,33 @@ INSERT INTO `tokokelontong`.`barang` (`idKategori`, `idSupplier`, `namaBarang`, 
 (5, 4, 'Ember Plastik', 25000.00, NULL),
 (1, 5, 'Snack Cokelat', 10000.00, 9500.00),
 (2, 6, 'Susu Kotak', 12000.00, 11500.00),
-(6, 7, 'Rokok Marlboro', 25000.00, NULL);
+(6, 7, 'Rokok Marlboro', 25000.00, NULL),
+(7, 9, 'Setrika Listrik', 250000.00, NULL),
+(8, 10, 'Kaos Polos', 50000.00, 45000.00),
+(9, 11, 'Lego Blocks', 150000.00, NULL),
+(10, 12, 'Sepatu Olahraga', 300000.00, NULL),
+(11, 13, 'Lipstick Matte', 75000.00, NULL),
+(7, 9, 'Blender', 400000.00, NULL),
+(8, 10, 'Jeans Denim', 250000.00, 230000.00),
+(9, 11, 'Boneka Beruang', 120000.00, NULL),
+(10, 12, 'Matras Yoga', 200000.00, NULL),
+(11, 13, 'Bedak Tabur', 50000.00, NULL);
 
 -- Data contoh untuk tabel detailTransaksi
 INSERT INTO `tokokelontong`.`detailtransaksi` (`idTransaksi`, `idBarang`, `banyakBarang`) VALUES
 (1, 1, 2),
 (1, 2, 5),
 (2, 3, 10),
-(3, 4, 6);
+(3, 4, 6),
+(4, 7, 1),
+(4, 8, 2),
+(5, 9, 1),
+(5, 10, 3),
+(6, 11, 1),
+(7, 12, 2),
+(7, 13, 4),
+(8, 14, 2),
+(8, 15, 1);
 
 -- Data contoh untuk tabel transaksisupplier
 INSERT INTO `tokokelontong`.`transaksisupplier` (`idBarang`, `hargaBeli`, `waktuTransaksi`, `kuantitas`) VALUES
@@ -161,4 +195,14 @@ INSERT INTO `tokokelontong`.`transaksisupplier` (`idBarang`, `hargaBeli`, `waktu
 (17, 8900.00, '2024-12-06 10:00:00', 25),
 (18, 11200.00, '2024-12-06 11:00:00', 30),
 (19, 8700.00, '2024-12-07 08:00:00', 20),
-(20, 15000.00, '2024-12-07 09:00:00', 40);
+(20, 15000.00, '2024-12-07 09:00:00', 40),
+(21, 220000.00, '2024-12-07 09:00:00', 15),
+(22, 40000.00, '2024-12-07 10:00:00', 50),
+(23, 130000.00, '2024-12-08 08:00:00', 20),
+(24, 180000.00, '2024-12-08 09:00:00', 25),
+(25, 45000.00, '2024-12-09 08:00:00', 40),
+(26, 350000.00, '2024-12-09 09:00:00', 10),
+(27, 210000.00, '2024-12-09 10:00:00', 15),
+(28, 48000.00, '2024-12-10 07:00:00', 50),
+(29, 120000.00, '2024-12-10 08:00:00', 30),
+(30, 195000.00, '2024-12-10 09:00:00', 10);

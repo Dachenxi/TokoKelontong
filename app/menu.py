@@ -1,7 +1,8 @@
-from app.view_all_tabel import view_all
 from view import tabel,tanya, panel
 from rich import print
 from .view_barang import barang
+from .view_supplier import supplier
+from .view_all_tabel import view_all
 import os
 
 def clear():
@@ -27,6 +28,6 @@ def menu():
         elif no == '2':
             barang()
         elif no == '3':
-            print()
+            supplier()
         elif no == '4':
             print()

@@ -11,7 +11,7 @@ def clear():
 
 def barang():
     clear()
-    query = "SELECT * FROM barang LIMIT 100"
+    query = "SELECT * FROM barang LIMIT 20"
     header_tabel = ["ID",
                     "ID Kategori",
                     "ID Supplier",
@@ -30,7 +30,7 @@ def barang():
     ]
 
     grub_menu = Group(
-        tabel("Barang Limit 100", kolom=header_tabel, baris=execute_query(query=query)),
+        tabel("- Barang Limit 20 -", kolom=header_tabel, baris=execute_query(query=query)),
         tabel("Menu",kolom=menu,baris=baris_menu),
         panel(Align.center("Masukan Pilihan Fungsi"))
     )
