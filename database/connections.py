@@ -31,6 +31,6 @@ def connect_db(config):
         if db.is_connected():
             cursor = db.cursor()
             return db, cursor
-        
+
     except Error as e:
         raise Error(f"Gagal menghubungkan ke database | {e}")
