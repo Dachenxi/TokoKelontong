@@ -167,7 +167,7 @@ def edit():
 
     elif pilihan == "2":
         data_id_barang = execute_query("SELECT idbarang FROM barang ORDER BY idbarang ASC")
-        kolom_id_barang = Columns([panel(str(value[0])) for value in data_id_barang])
+        kolom_id_barang = Columns([panel(Align.center(str(value[0]))) for value in data_id_barang])
         while True:
             clear()
             print(panel(kolom_id_barang, subtitle="╭─ Masukan ID Barang", subtitle_align="left"))
