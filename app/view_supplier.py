@@ -18,9 +18,8 @@ def tabel_supplier(id_supplier=None):
 def supplier():
     baris_menu = [
         ('1',"Edit", 'Edit Tabel Supplier'),
-        ('2',"Filter", 'Filter Tabel Supplier'),
-        ('3',"Lihat Semua", 'Lihat Semua Tabel Supplier'),
-        ('4',"Kembali", 'Kembali ke Menu Utama')
+        ('2',"Lihat Semua", 'Lihat Semua Tabel Supplier'),
+        ('3',"Kembali", 'Kembali ke Menu Utama')
     ]
     grub_menu_supplier = Group(
         panel(Align.center("- Menu Supplier -")),
@@ -33,8 +32,6 @@ def supplier():
     if no == '1':
         edit()
     elif no == '2':
-        filter()
-    elif no == '3':
         Lihat_Semua()
     else:
         pass
@@ -233,9 +230,8 @@ def hapus_supplier():
     if lagi:
         hapus_supplier()
 
-
-def filter():
-    pass
-
 def Lihat_Semua():
-    pass
+    clear()
+    print(panel(tabel_supplier(),subtitle="Enter untuk kembali",subtitle_align="left"))
+    input()
+    supplier()
