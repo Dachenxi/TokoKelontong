@@ -3,6 +3,7 @@ from rich import print
 from .view_barang import barang
 from .view_supplier import supplier
 from .view_all_tabel import view_all
+from .view_transaksi import transaksi
 import os
 
 def clear():
@@ -30,4 +31,4 @@ def menu():
         elif no == '3':
             supplier()
         elif no == '4':
-            print()
+            transaksi()
