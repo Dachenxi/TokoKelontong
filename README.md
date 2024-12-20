@@ -53,8 +53,8 @@ Sebuah interface dari database kelontong yang dibuat menggunakan python, dengan 
 
    ```plaintext
     DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=171105
+    DB_USER= usermu
+    DB_PASSWORD= passwordmu
     DB_DATABASE=tokokelontong
 
 ## Setup database
