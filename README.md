@@ -39,7 +39,7 @@ Sebuah interface dari database kelontong yang dibuat menggunakan python, dengan 
 5. Selanjutnya clone repo ini dengan
 
    ```plain
-    git clone
+    git clone https://github.com/Dachenxi/TokoKelontong
 
 ## Setup Connection
 
